@@ -2,6 +2,10 @@ const express = require('express');
 const dotenv = require("dotenv").config()
 const cors = require("cors")
 const router = require("./routes/routes")
+const morganLogger = require('./middlewares/morganLogger');
+const errorHandler = require('./middlewares/errorHandler');
+const setupSwagger = require('./utils/swagger');
+const raterLimiter = require('./middlewares/raterLimiter')
 
 class App {
 
@@ -14,8 +18,12 @@ class App {
     middlewares() {
         this.app.use(express.json())
         this.app.use(express.urlencoded({extended: true}))
+        this.app.use(morganLogger());
+        setupSwagger(this.app)
+        this.app.use(raterLimiter)
         this.app.use(cors())
         this.app.use(router)
+        this.app.use(errorHandler)
     }
 
 

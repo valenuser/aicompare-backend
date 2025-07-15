@@ -1,7 +1,6 @@
 const {Router} = require('express')
-const AppError = require('../../../utils/AppError')
 
-class UserController{
+class VoteController{
     constructor(){
         this.router = Router()
         this.controllers()
@@ -10,13 +9,14 @@ class UserController{
     controllers(){
     /**
      * @swagger
-     * /user:
+     * /vote:
      *   get:
-     *     summary: Devuelve mensaje de prueba del controlador de usuario
-     *     tags: [User]
+     *     summary: Endpoint de prueba del controlador de votos
+     *     tags:
+     *       - Vote
      *     responses:
      *       200:
-     *         description: Respuesta exitosa con mensaje
+     *         description: Retorna mensaje de votos
      *         content:
      *           application/json:
      *             schema:
@@ -24,16 +24,16 @@ class UserController{
      *               properties:
      *                 message:
      *                   type: string
-     *                   example: user controller
+     *                   example: vote controller
      */
-        this.router.get('/',(req,res,next)=>{
-            res.status(200).json({message:'user controller'})
-        })
 
+        this.router.get('/',(req,res,next)=>{
+            res.status(200).json({message:'vote controller'})
+        })
 
         return this.router
 
     }
 }
 
-module.exports = { UserController }
+module.exports = { VoteController }

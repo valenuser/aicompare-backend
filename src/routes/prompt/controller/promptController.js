@@ -1,7 +1,6 @@
 const {Router} = require('express')
-const AppError = require('../../../utils/AppError')
 
-class UserController{
+class PromptController{
     constructor(){
         this.router = Router()
         this.controllers()
@@ -10,13 +9,14 @@ class UserController{
     controllers(){
     /**
      * @swagger
-     * /user:
+     * /prompt:
      *   get:
-     *     summary: Devuelve mensaje de prueba del controlador de usuario
-     *     tags: [User]
+     *     summary: Obtener prompts (endpoint de prueba)
+     *     tags:
+     *       - Prompt
      *     responses:
      *       200:
-     *         description: Respuesta exitosa con mensaje
+     *         description: Respuesta de prueba del controlador de prompt
      *         content:
      *           application/json:
      *             schema:
@@ -24,16 +24,15 @@ class UserController{
      *               properties:
      *                 message:
      *                   type: string
-     *                   example: user controller
+     *                   example: prompt controller
      */
         this.router.get('/',(req,res,next)=>{
-            res.status(200).json({message:'user controller'})
+            res.status(200).json({message:'prompt controller'})
         })
-
 
         return this.router
 
     }
 }
 
-module.exports = { UserController }
+module.exports = { PromptController }
