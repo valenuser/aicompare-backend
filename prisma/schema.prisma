@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Choice {
+  A
+  B
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  googleId     String    @unique
+  email        String    @unique
+  name         String?
+  avatarUrl    String?
+  createdAt    DateTime  @default(now())
+
+  votes        Vote[]
+  comments     Comment[]
+}
+
+model Prompt {
+  id          Int          @id @default(autoincrement())
+  text        String
+  createdAt   DateTime     @default(now())
+  comparisons Comparison[]
+}
+
+model Comparison {
+  id          Int          @id @default(autoincrement())
+  promptId    Int
+  modelA      String
+  modelB      String
+  responseA   String
+  responseB   String
+  createdAt   DateTime     @default(now())
+
+  votes       Vote[]
+  comments    Comment[]
+  prompt      Prompt       @relation(fields: [promptId], references: [id])
+}
+
+model Vote {
+  id            Int        @id @default(autoincrement())
+  userId        Int
+  comparisonId  Int
+  choice        Choice
+  createdAt     DateTime   @default(now())
+
+  user          User       @relation(fields: [userId], references: [id])
+  comparison    Comparison @relation(fields: [comparisonId], references: [id])
+
+  @@unique([userId, comparisonId])
+}
+
+model Comment {
+  id            Int        @id @default(autoincrement())
+  userId        Int
+  comparisonId  Int
+  text          String
+  createdAt     DateTime   @default(now())
+
+  user          User       @relation(fields: [userId], references: [id])
+  comparison    Comparison @relation(fields: [comparisonId], references: [id])
+}
