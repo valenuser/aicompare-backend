@@ -27,7 +27,7 @@ class UserService {
           let user = await prisma.user.findUnique({ where: { googleId:googleId } });
           if (!user) {
             user = await prisma.user.create({
-              data: { googleId, email, name, avatarUrl: picture },
+              data: { googleId:googleId, email:email, name:name, avatarUrl: picture },
             });
           }
           return user;

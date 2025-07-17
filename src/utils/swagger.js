@@ -9,6 +9,15 @@ const options = {
       version: '1.0.0',
       description: 'API para el backend de AICompare',
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
     servers: [
       {
         url: 'http://localhost:3000', // Cambia el puerto si usas otro

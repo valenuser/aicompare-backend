@@ -36,7 +36,8 @@ data/
 *.ntvs*
 *.njsproj
 *.sln
-
+*.json
+*.txt
 # OS files
 .DS_Store
 Thumbs.db
